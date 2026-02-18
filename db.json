@@ -1,0 +1,62 @@
+{
+  "id": "P123",
+  "name": "Luxury Watch",
+  "price": 1499,
+  "images": [
+    "url1.jpg",
+    "url2.jpg",
+    "url3.jpg"
+  ],
+  "desc": "Ye ek premium watch hai...",
+  "products": [
+    {
+      "id": "P1771402227514",
+      "name": "GUN",
+      "price": 399,
+      "images": [
+        "https://i.postimg.cc/W1CBmyQw/images-(10).jpg"
+      ],
+      "desc": ""
+    }
+  ],
+  "orders": [
+    {
+      "id": 531985,
+      "phone": "9041572652",
+      "fullname": "Anand ",
+      "address": "Anand",
+      "total": 798,
+      "advance": "758.10",
+      "items": [
+        {
+          "id": "P1771402227514",
+          "name": "GUN",
+          "price": 399,
+          "images": [
+            "https://i.postimg.cc/W1CBmyQw/images-(10).jpg"
+          ],
+          "desc": ""
+        },
+        {
+          "id": "P1771402227514",
+          "name": "GUN",
+          "price": 399,
+          "images": [
+            "https://i.postimg.cc/W1CBmyQw/images-(10).jpg"
+          ],
+          "desc": ""
+        }
+      ],
+      "paymentMethod": "Online",
+      "utr": "8278648549",
+      "status": "🕒 Pending",
+      "date": "18/2/2026"
+    }
+  ],
+  "verified_users": [
+    {
+      "phone": "9041572652",
+      "otp": 5192
+    }
+  ]
+}

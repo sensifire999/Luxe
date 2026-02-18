@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.name %> | LuxeStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; }
+        .swiper { width: 100%; height: 400px; border-radius: 30px; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+        .swiper-pagination-bullet-active { background: #2563eb !important; }
+    </style>
+</head>
+<body class="pb-24">
+
+    <div class="p-6 flex items-center justify-between">
+        <button onclick="history.back()" class="p-3 bg-slate-100 rounded-2xl">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <h1 class="text-xs font-black uppercase tracking-widest text-slate-400">Product Details</h1>
+        <div class="w-10"></div>
+    </div>
+
+    <div class="px-6">
+        <div class="swiper mySwiper shadow-2xl shadow-blue-100">
+            <div class="swiper-wrapper">
+                <% if(Array.isArray(product.images)) { %>
+                    <% product.images.forEach(img => { %>
+                        <div class="swiper-slide"><img src="<%= img %>"></div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="swiper-slide"><img src="<%= product.image %>"></div>
+                <% } %>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div class="p-8">
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-widest">New Arrival</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2 uppercase italic tracking-tighter"><%= product.name %></h2>
+            </div>
+            <p class="text-2xl font-black text-slate-900">₹<%= product.price %></p>
+        </div>
+
+        <div class="mt-8">
+            <h3 class="text-xs font-black text-slate-400 uppercase tracking-[3px] mb-3">About Item</h3>
+            <p class="text-slate-600 leading-relaxed font-medium">
+                <%= product.desc || "No description available for this luxury item." %>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="bg-slate-50 p-4 rounded-3xl border border-slate-100">
+                <p class="text-[9px] font-black text-slate-400 uppercase">Delivery</p>
+                <p class="text-xs font-bold text-slate-800 mt-1">Free Shipping</p>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-3xl border border-slate-100">
+                <p class="text-[9px] font-black text-slate-400 uppercase">Return</p>
+                <p class="text-xs font-bold text-slate-800 mt-1">7 Days Replacement</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full p-6 bg-white/80 backdrop-blur-lg border-t border-slate-100 flex gap-4">
+        <button onclick="addToCart('<%= product.id %>')" class="flex-1 bg-slate-900 text-white py-5 rounded-[22px] font-black text-xs uppercase tracking-widest shadow-xl active:scale-95 transition-all">
+            Add to Cart
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            pagination: { el: ".swiper-pagination", clickable: true },
+            loop: true
+        });
+
+        function addToCart(id) {
+            fetch('/add-to-cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId: id })
+            }).then(res => res.json())
+              .then(data => {
+                  if(data.success) alert('Added to cart!');
+              });
+        }
+    </script>
+</body>
+</html>
+

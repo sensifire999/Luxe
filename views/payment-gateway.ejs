@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPay | LuxeStore Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fdfdfd; }
+        .payment-card { border-radius: 45px; box-shadow: 0 25px 60px rgba(0,0,0,0.06); }
+        .btn-animate { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-animate:active { transform: scale(0.92); }
+    </style>
+</head>
+<body class="p-6">
+
+    <div class="max-w-md mx-auto">
+        <div class="text-center mb-10">
+            <h1 class="text-xl font-black text-slate-900 uppercase italic tracking-tighter">Secure Payment</h1>
+            <div class="h-1 w-12 bg-blue-600 mx-auto mt-2 rounded-full"></div>
+        </div>
+
+        <div class="bg-white payment-card p-10 mb-8 border border-slate-50 relative overflow-hidden text-center">
+            <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-3">Amount to Pay</p>
+            <h2 class="text-5xl font-black text-slate-900 mb-10">₹<%= orderData.advance %></h2>
+
+            <button onclick="payViaGPay()" class="btn-animate w-full bg-[#1a1a1a] text-white py-6 rounded-[28px] shadow-2xl flex items-center justify-center gap-4 mb-8">
+                <svg width="24" height="24" viewBox="0 0 40 40">
+                    <path d="M20 40c11.046 0 20-8.954 20-20S31.046 0 20 0 0 8.954 0 20s8.954 20 20 20z" fill="#fff"/>
+                    <path d="M29.1 18.2h-7.6v2.8h4.5c-.3 1.9-1.9 3.4-4.1 3.4-2.5 0-4.6-2-4.6-4.5s2-4.5 4.6-4.5c1.1 0 2.1.4 2.9 1.1l2.1-2.1c-1.3-1.2-3-2-5-2-4.1 0-7.4 3.3-7.4 7.4s3.3 7.4 7.4 7.4c4.3 0 7.1-3 7.1-7.3 0-.5-.1-.8-.3-1.2z" fill="#4285F4"/>
+                </svg>
+                <span class="font-black text-sm uppercase tracking-widest">Pay with GPay</span>
+            </button>
+
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-[1px] bg-slate-100 flex-1"></div>
+                <span class="text-[10px] font-black text-slate-300 uppercase">Or scan QR</span>
+                <div class="h-[1px] bg-slate-100 flex-1"></div>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-[40px] border border-slate-100 inline-block shadow-inner">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=7763941350@ybl&pn=LuxeStore&am=<%= orderData.advance %>&cu=INR" 
+                     alt="Scan to Pay" class="w-40 h-40 mx-auto mix-blend-multiply">
+            </div>
+        </div>
+
+        <form action="/place-order" method="POST" class="space-y-4">
+            <div class="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
+                <label class="text-[10px] font-black text-slate-400 uppercase ml-2 tracking-widest">Transaction ID (UTR)</label>
+                <input type="number" name="utr" placeholder="Enter 12 Digit Number" required 
+                       class="w-full mt-2 p-5 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-black text-lg text-slate-900 focus:ring-4 focus:ring-blue-50">
+            </div>
+
+            <button type="submit" class="btn-animate w-full bg-blue-600 text-white py-6 rounded-[28px] font-black text-sm uppercase tracking-widest shadow-xl">
+                Confirm Order
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function payViaGPay() {
+            const upiId = "7763941350@ybl"; 
+            const amount = "<%= orderData.advance %>";
+            const name = "LuxeStore";
+            const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&mode=02&purpose=00&tn=LuxeStoreBooking`;
+
+            window.location.href = upiUrl;
+
+            setTimeout(() => {
+                alert("Agar Google Pay nahi khula, toh niche QR code scan karein.");
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
+

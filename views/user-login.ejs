@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Verification | LuxeStore</title>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        .auth-card { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen p-6">
+
+    <div class="auth-card w-full max-w-[420px] bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-slate-200 border border-slate-50">
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-slate-900 rounded-[2rem] mb-6 shadow-xl shadow-slate-200">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Buyer Security</h2>
+            <p class="text-slate-400 font-medium mt-2">Anti-Fraud Verification Step</p>
+        </div>
+
+        <form action="/initiate-verify" method="POST" class="space-y-8">
+            <div class="space-y-2">
+                <label class="text-[11px] font-black uppercase tracking-[0.15em] text-slate-400 ml-1">Phone Number</label>
+                <div class="flex items-center bg-slate-50 border-2 border-slate-50 rounded-2xl focus-within:border-slate-900 focus-within:bg-white transition-all px-5">
+                    <span class="text-slate-900 font-bold mr-3">+91</span>
+                    <input type="number" name="phone" placeholder="Enter linked number" 
+                           class="w-full py-5 bg-transparent outline-none font-bold text-slate-900 text-lg" required>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-2 ml-1 italic">Note: Use the number registered on your Telegram app.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-slate-300 hover:bg-black active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                Secure Verification
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </button>
+        </form>
+
+        <div class="mt-10 pt-8 border-t border-slate-50 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">SSL Encrypted</span>
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" class="w-5 h-5 opacity-20" alt="TG">
+        </div>
+    </div>
+
+</body>
+</html>
+

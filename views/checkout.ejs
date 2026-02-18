@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Checkout | LuxeStore</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f3f6; }
+        input::placeholder, textarea::placeholder { color: #9ca3af; font-size: 13px; }
+    </style>
+</head>
+<body class="pb-32">
+
+    <header class="bg-[#2874f0] p-4 sticky top-0 z-50 flex items-center gap-4 shadow-md">
+        <button onclick="history.back()" class="text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <h1 class="text-white font-bold text-lg">Order Summary</h1>
+    </header>
+
+    <main class="max-w-md mx-auto">
+        <form action="/process-checkout" method="POST" id="checkoutForm">
+            
+            <div class="bg-white p-5 mb-2 shadow-sm mt-2">
+                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Delivery Details</h2>
+                <div class="space-y-5">
+                    <div class="relative">
+                        <input type="text" name="fullname" placeholder="Full Name" required
+                               class="w-full border-b border-gray-200 py-2 text-sm outline-none focus:border-[#2874f0] transition-all">
+                    </div>
+                    <div class="relative">
+                        <textarea name="address" placeholder="Complete Address (House No, Area, Pincode)" required
+                                  class="w-full border-b border-gray-200 py-2 text-sm outline-none focus:border-[#2874f0] transition-all" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 mb-2 shadow-sm">
+                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Items In Order</h2>
+                <div class="space-y-4">
+                    <% if (typeof items !== 'undefined' && items.length > 0) { %>
+                        <% items.forEach(item => { %>
+                            <div class="flex gap-4 items-center border-b border-gray-50 pb-4">
+                                <div class="w-16 h-16 bg-gray-50 rounded-md overflow-hidden shrink-0 border border-gray-100">
+                                    <% if (Array.isArray(item.images) && item.images.length > 0) { %>
+                                        <img src="<%= item.images[0] %>" class="w-full h-full object-cover">
+                                    <% } else if (item.image) { %>
+                                        <img src="<%= item.image %>" class="w-full h-full object-cover">
+                                    <% } else { %>
+                                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-[10px]">No Img</div>
+                                    <% } %>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 class="text-sm font-semibold text-gray-800 truncate w-48"><%= item.name %></h4>
+                                    <p class="text-blue-600 font-bold text-sm mt-1">₹<%= item.price %></p>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-center text-red-500 text-xs font-bold py-4 italic">Reference Error: Cart Items Not Found!</p>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 shadow-sm mb-2">
+                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Payment Method</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center p-4 border rounded-xl cursor-pointer bg-blue-50 border-blue-200">
+                        <input type="radio" name="paymentMethod" value="Online" checked class="w-4 h-4 text-[#2874f0]">
+                        <div class="ml-4">
+                            <span class="block text-sm font-bold text-gray-800">Prepaid (Full Payment)</span>
+                            <span class="block text-[10px] text-green-600 font-bold">Safe & Instant Confirmation</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-4 border border-gray-100 rounded-xl cursor-pointer">
+                        <input type="radio" name="paymentMethod" value="COD" class="w-4 h-4 text-[#2874f0]">
+                        <div class="ml-4">
+                            <span class="block text-sm font-bold text-gray-800">Partial COD</span>
+                            <span class="block text-[10px] text-gray-400 italic">20% advance required via UPI</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 shadow-sm mb-24">
+                <h2 class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Price Details</h2>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Price (<%= typeof items !== 'undefined' ? items.length : 0 %> items)</span>
+                        <span class="text-gray-800">₹<%= typeof items !== 'undefined' ? items.reduce((a, b) => a + parseInt(b.price), 0) : 0 %></span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Delivery</span>
+                        <span class="text-green-600 font-bold italic uppercase text-[10px]">Free</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold border-t border-dashed border-gray-200 pt-3 mt-3">
+                        <span class="text-gray-800">Amount Payable</span>
+                        <span class="text-gray-800">₹<%= typeof items !== 'undefined' ? items.reduce((a, b) => a + parseInt(b.price), 0) : 0 %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
+                <div class="max-w-md mx-auto flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase">Total Amount</span>
+                        <span class="text-xl font-bold text-gray-900">₹<%= typeof items !== 'undefined' ? items.reduce((a, b) => a + parseInt(b.price), 0) : 0 %></span>
+                    </div>
+                    <button type="submit" class="bg-[#fb641b] text-white px-10 py-3.5 rounded-sm font-bold uppercase text-sm shadow-lg active:scale-95 transition-all">
+                        Continue
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>
+

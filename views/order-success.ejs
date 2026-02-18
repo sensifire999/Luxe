@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | LuxeStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-check { animation: checkmark 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    </style>
+</head>
+<body class="bg-[#F1F3F6] font-sans">
+
+    <div class="bg-white p-4 shadow-sm flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <a href="/" class="text-gray-800"><i class="fa-solid fa-arrow-left text-lg"></i></a>
+            <h1 class="text-lg font-bold">Order Details</h1>
+        </div>
+        <div class="text-blue-600 font-bold text-sm">HELP</div>
+    </div>
+
+    <div class="bg-white mt-2 p-8 text-center border-b">
+        <div class="flex justify-center mb-4">
+            <div class="bg-green-500 w-20 h-20 rounded-full flex items-center justify-center animate-check shadow-lg shadow-green-200">
+                <i class="fa-solid fa-check text-4xl text-white"></i>
+            </div>
+        </div>
+        <h2 class="text-2xl font-black text-gray-800 tracking-tight">Order Placed Successfully!</h2>
+        <p class="text-gray-500 mt-2 text-sm font-medium">Your premium collection is on its way.</p>
+    </div>
+
+    <div class="bg-white mt-2 p-5">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Order ID</p>
+                <p class="text-gray-800 font-mono font-bold">#LX-<%= orderId %></p>
+            </div>
+            <button class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-xs font-bold uppercase">Copy ID</button>
+        </div>
+        
+        <div class="border-t pt-4">
+            <div class="flex items-center gap-4">
+                <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-600">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-bold text-gray-800">Delivery by Monday, 23 Feb</p>
+                    <p class="text-xs text-green-600 font-medium italic">Verified Luxe Logistics</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-5 space-y-3">
+        <a href="/order-track/<%= orderId %>" class="block w-full bg-white border-2 border-black text-black text-center py-4 rounded-[20px] font-black text-sm uppercase tracking-widest active:scale-95 transition-all">
+            Track Order Status
+        </a>
+        <a href="/" class="block w-full bg-black text-white text-center py-4 rounded-[20px] font-black text-sm uppercase tracking-widest shadow-xl shadow-gray-300 active:scale-95 transition-all">
+            Continue Shopping
+        </a>
+    </div>
+
+    <div class="px-5 mt-4">
+        <div class="bg-blue-600 rounded-[30px] p-6 text-white flex items-center justify-between overflow-hidden relative">
+            <div class="z-10">
+                <h4 class="font-bold text-lg leading-tight">100% Safe<br>Payments</h4>
+                <p class="text-[10px] opacity-80 mt-1">Verified by Luxe Security</p>
+            </div>
+            <i class="fa-solid fa-shield-halved text-6xl opacity-20 absolute -right-2 rotate-12"></i>
+        </div>
+    </div>
+
+    <p class="text-center text-gray-400 text-[10px] mt-10 pb-10 uppercase tracking-[3px]">LuxeStore Premium Experience</p>
+
+</body>
+</html>
+

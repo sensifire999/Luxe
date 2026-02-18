@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <title>OTP Verification | LuxeStore</title>
+</head>
+<body class="bg-[#F8FAFC] flex items-center justify-center h-screen p-6 font-['Plus_Jakarta_Sans']">
+
+    <div class="w-full max-w-md bg-white p-10 rounded-[2.5rem] shadow-2xl border border-slate-100 text-center">
+        <div class="w-20 h-20 bg-blue-50 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-inner">
+            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+        </div>
+
+        <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Verify OTP</h2>
+        <p class="text-slate-400 text-sm font-medium mb-8 leading-relaxed">
+            Hamne aapke Telegram Bot par ek 4-digit code bheja hai. Use niche enter karein.
+        </p>
+
+        <a href="https://t.me/Web_login_verify_bot" target="_blank" 
+           class="flex items-center justify-center gap-3 w-full bg-[#229ED9] text-white py-4 rounded-2xl font-bold mb-8 hover:bg-blue-600 transition-all shadow-lg shadow-blue-100">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            Get OTP on Telegram
+        </a>
+
+        <hr class="border-slate-100 mb-8">
+
+        <form action="/verify-otp" method="POST" class="space-y-6">
+            <div class="text-left">
+                <label class="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Secret Access Code</label>
+                <input type="number" name="otp" placeholder="0 0 0 0" 
+                       class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-5 text-center text-3xl font-black tracking-[1rem] text-slate-900 focus:border-blue-500 focus:bg-white transition-all outline-none" 
+                       required oninput="if(this.value.length > 4) this.value = this.value.slice(0, 4);">
+            </div>
+
+            <button type="submit" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg hover:bg-black shadow-xl shadow-slate-200 transition-all active:scale-95">
+                Verify & Continue
+            </button>
+        </form>
+
+        <p class="mt-8 text-[10px] text-slate-300 font-bold uppercase tracking-widest">
+            OTP expires in 60 seconds
+        </p>
+    </div>
+
+</body>
+</html>
+
